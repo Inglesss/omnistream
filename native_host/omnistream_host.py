@@ -22,9 +22,32 @@ def _resolve_ffmpeg_exe():
     found = shutil.which("ffmpeg")
     if found:
         return found
-    local_bin = os.path.join(os.path.dirname(os.path.abspath(__file__)), "bin", "ffmpeg.exe")
+
+    local_bin_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "bin")
+    local_bin = os.path.join(local_bin_dir, "ffmpeg.exe")
     if os.path.exists(local_bin):
         return local_bin
+
+    # Buscar instalación de WinGet (Gyan.FFmpeg) aunque no se haya reiniciado Chrome
+    local_app = os.environ.get("LOCALAPPDATA", "")
+    if local_app:
+        winget_dir = os.path.join(local_app, "Microsoft", "WinGet", "Packages")
+        if os.path.isdir(winget_dir):
+            for root, _, files in os.walk(winget_dir):
+                if "ffmpeg.exe" in files and "Gyan.FFmpeg" in root:
+                    return os.path.join(root, "ffmpeg.exe")
+
+    # Respaldo universal: imageio-ffmpeg (instalado por instalar.bat)
+    try:
+        import imageio_ffmpeg
+        src_exe = imageio_ffmpeg.get_ffmpeg_exe()
+        if src_exe and os.path.exists(src_exe):
+            os.makedirs(local_bin_dir, exist_ok=True)
+            shutil.copy2(src_exe, local_bin)
+            return local_bin
+    except Exception:
+        pass
+
     return "ffmpeg.exe"
 
 
@@ -468,6 +491,9 @@ def run_ytdlp_task(task):
     is_youtube = ("youtube.com" in url.lower() or "youtu.be" in url.lower())
 
     try:
+        if not FFMPEG_DIR or not os.path.exists(FFMPEG_EXE):
+            raise RuntimeError("Falta FFmpeg: ejecuta instalar.bat para instalarlo automáticamente.")
+
         append_log(f"[{download_id}] Inicio tarea: url={url} audioOnly={audio_only} transcribeOnly={transcribe_only} cookies={len(cookies_list)}")
         send_native_message({
             "type": "progress",
@@ -655,7 +681,7 @@ def main():
         if action == "ping":
             send_native_message({
                 "type": "pong",
-                "version": "3.2.2",
+                "version": "3.2.3",
                 "ffmpeg": os.path.exists(FFMPEG_EXE)
             })
         elif action == "probe_formats":

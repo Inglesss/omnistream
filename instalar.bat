@@ -1,10 +1,10 @@
 @echo off
 setlocal EnableDelayedExpansion
 chcp 65001 >nul
-title Instalador OmniStream v3.2.2
+title Instalador OmniStream v3.2.3
 
 echo ==================================================
-echo   OmniStream v3.2.2 - Instalador Puente Nativo
+echo   OmniStream v3.2.3 - Instalador Puente Nativo
 echo ==================================================
 echo.
 
@@ -16,8 +16,8 @@ if errorlevel 1 (
     exit /b 1
 )
 
-echo [1/4] Instalando/actualizando dependencias (yt-dlp y google-genai)...
-python -m pip install -U yt-dlp google-genai
+echo [1/4] Instalando/actualizando dependencias (yt-dlp, FFmpeg y Gemini)...
+python -m pip install -U yt-dlp google-genai imageio-ffmpeg
 if errorlevel 1 (
     echo [ADVERTENCIA] Revisa si pip tuvo algun problema. Puedes reintentar manualmente.
 )
@@ -25,15 +25,9 @@ echo.
 
 where ffmpeg >nul 2>&1
 if errorlevel 1 (
-    if not exist "%~dp0native_host\bin\ffmpeg.exe" (
-        echo [AVISO] No se encontro FFmpeg en el PATH.
-        echo Para fusionar Video+Audio MP4 y convertir MP3, instala FFmpeg ejecutando:
-        echo     winget install Gyan.FFmpeg
-        echo Luego reinicia tu terminal o navegador.
-        echo.
-    )
+    echo [OK] FFmpeg listo via paquete integrado imageio-ffmpeg.
 ) else (
-    echo [OK] FFmpeg detectado correctamente.
+    echo [OK] FFmpeg del sistema detectado correctamente.
 )
 
 echo [2/4] Configuracion del ID de Extension de Chrome/Edge/Brave

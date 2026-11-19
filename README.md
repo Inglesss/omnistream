@@ -1,6 +1,6 @@
 # OmniStream
 
-![Versión](https://img.shields.io/badge/version-v3.2.2-blue)
+![Versión](https://img.shields.io/badge/version-v3.2.3-blue)
 ![Manifest](https://img.shields.io/badge/Chrome-Manifest%20V3-green)
 ![Plataforma](https://img.shields.io/badge/OS-Windows%2010%2F11-lightgrey)
 ![Licencia](https://img.shields.io/badge/license-MIT-brightgreen)
@@ -25,17 +25,14 @@ Extensión de código abierto para **Chrome, Edge y Brave** que descarga video `
 
 Descarga el paquete listo desde la sección oficial de lanzamientos:
 
-👉 **[Descargar OmniStream v3.2.2 (.ZIP)](https://github.com/Inglesss/omnistream/releases/latest)**
+👉 **[Descargar OmniStream v3.2.3 (.ZIP)](https://github.com/Inglesss/omnistream/releases/latest)**
 
 ---
 
 ## Requisitos (Windows)
 
 1. **Python 3.10+** con la opción **Add Python to PATH** marcada ([descargar aquí](https://www.python.org/downloads/)).
-2. **FFmpeg**:
-   ```powershell
-   winget install Gyan.FFmpeg
-   ```
+2. *(Incluido en `instalar.bat`)* `yt-dlp` y **FFmpeg** se instalan automáticamente vía `pip` (`imageio-ffmpeg`).
 3. *(Opcional, recomendado para YouTube)* **Node.js LTS**:
    ```powershell
    winget install OpenJS.NodeJS.LTS
@@ -46,7 +43,7 @@ Descarga el paquete listo desde la sección oficial de lanzamientos:
 
 ## Instalación paso a paso
 
-1. Descomprime `OmniStream v3.2.2.zip` en una carpeta fija (ejemplo: `Documentos\OmniStream`).
+1. Descomprime `OmniStream v3.2.3.zip` en una carpeta fija (ejemplo: `Documentos\OmniStream`).
 2. Abre `chrome://extensions` en Chrome (`edge://extensions` en Edge o `brave://extensions` en Brave).
 3. Activa **Modo de desarrollador** (esquina superior derecha).
 4. Haz clic en **Cargar descomprimida** y selecciona la carpeta descomprimida.
