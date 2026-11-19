@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OmniStream</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="google-top-bar">
+    <span class="g-blue"></span>
+    <span class="g-red"></span>
+    <span class="g-yellow"></span>
+    <span class="g-green"></span>
+  </div>
+
+  <header class="app-header">
+    <div class="logo-group">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="6 4 20 12 6 20 6 4" fill="currentColor" stroke="none"></polygon>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <div class="brand-row">
+          <h1 class="app-title">OmniStream</h1>
+          <span class="badge-version">v3.2.2</span>
+        </div>
+        <p class="app-subtitle">Descargador Universal MP4 y MP3</p>
+      </div>
+    </div>
+    <button id="btn-open-sidepanel" class="btn-header-action" title="Fijar en el panel lateral de Chrome">
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+        <line x1="15" y1="3" x2="15" y2="21"></line>
+      </svg>
+      <span>Panel Lateral</span>
+    </button>
+  </header>
+
+  <section class="quality-toolbar">
+    <div class="quality-group">
+      <label for="select-video-quality" class="quality-label">Video</label>
+      <select id="select-video-quality" class="quality-select" title="Calidad máxima de descarga de video (.MP4)">
+        <option value="9999" selected>Máxima disponible</option>
+        <option value="2160">4K (2160p)</option>
+        <option value="1440">2K (1440p)</option>
+        <option value="1080">Full HD (1080p)</option>
+        <option value="720">HD (720p)</option>
+        <option value="480">SD (480p)</option>
+        <option value="360">Baja (360p)</option>
+        <option value="240">Ligera (240p)</option>
+        <option value="144">Mínima (144p)</option>
+      </select>
+    </div>
+    <div class="quality-group">
+      <label for="select-audio-quality" class="quality-label">Audio MP3</label>
+      <select id="select-audio-quality" class="quality-select" title="Bitrate de codificación de audio (.MP3)">
+        <option value="320">320 kbps (Estudio)</option>
+        <option value="192">192 kbps (Alta)</option>
+        <option value="128" selected>128 kbps (Estándar)</option>
+        <option value="64">64 kbps (Voz / Ligero)</option>
+      </select>
+    </div>
+  </section>
+
+  <section class="context-toolbar">
+    <input id="input-course-context" class="context-input" type="text" placeholder="Ramo o tema opcional para Gemini (ej. Base de Datos, Minería)" title="Ayuda a Gemini a interpretar mejor términos técnicos y mala dicción" />
+  </section>
+
+  <main class="content-container">
+    <div id="media-list" class="media-list"></div>
+
+    <div id="empty-state" class="empty-state">
+      <div class="empty-icon">
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="4" width="20" height="16" rx="3"></rect>
+          <polygon points="10 9 15 12 10 15 10 9" fill="currentColor"></polygon>
+        </svg>
+      </div>
+      <h2>Esperando reproducción de video</h2>
+      <p>Inicia el video en la pestaña activa para detectar el título y descargarlo en formato <strong>.MP4</strong> o extraer el audio en <strong>.MP3</strong>.</p>
+      <button id="btn-refresh-tab" class="btn btn-outline">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="23 4 23 10 17 10"></polyline>
+          <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+        </svg>
+        <span>Recargar pestaña</span>
+      </button>
+    </div>
+  </main>
+
+  <footer class="app-footer">
+    <div class="footer-stats">
+      <span class="status-dot"></span>
+      <span id="detected-count">0 videos detectados</span>
+    </div>
+    <div class="footer-actions">
+      <button id="btn-clear" class="btn-footer-link" title="Limpiar lista de esta pestaña">Limpiar lista</button>
+    </div>
+  </footer>
+
+  <div id="toast" class="toast">Acción completada</div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
